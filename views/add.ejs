@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동전 구매 페이지</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0e1c4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height : 1500px;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .checkbox-group label {
+            font-weight: normal;
+            display: flex;
+            align-items: center;
+            width : 100%;
+        }
+
+        .check{
+            width : 10%
+        }
+
+        button {
+            background: #945c16;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background: #b16f1f;
+        }
+
+        .total_price_display{
+
+            font-size: 1.2em;
+            margin : 15px;
+            width : 100%;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+
+
+
+</head>
+<body>
+
+<div class="container">
+    <h2>동전 구매 문의</h2>
+    <form action="/contacts/add" method="POST">
+        <label for="name">이름을 입력해주세요</label>
+        <input type="text" id="name" name="name" required >
+
+        <label for="email">이메일을 입력해주세요</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="phone_number">전화번호를 입력해주세요</label>
+        <input type="tel" id="phone_number" name="phone_number" required>
+
+        <label for="speech">구매할 동전이 여기 표시돼요</label>
+        <input class = "display_coin" type="text" id="speech" name="speech" readonly >
+
+        <label>구매할 동전</label>
+        <div class="checkbox-group">
+            <label><input type="checkbox" name="coins" value="1972년 10원 / 1000원" class = "check"> 1972년 10원 / 1000원</label>
+            <label><input type="checkbox" name="coins" value="1974년 50원 / 1000원" class = "check"> 1974년 50원 / 1000원</label>
+            <label><input type="checkbox" name="coins" value="1979년 50원 / 1500원" class = "check"> 1979년 50원 / 1500원</label>
+            <label><input type="checkbox" name="coins" value="2016년 50원(상태 최상) / 2500원" class = "check"> 2016년 50원(상태 최상) / 2500원</label>
+            <label><input type="checkbox" name="coins" value="1974년 100원 / 2500원" class = "check"> 1974년 100원 / 2500원</label>
+            <label><input type="checkbox" name="coins" value="1975년 100원 / 2500원" class = "check"> 1975년 100원 / 2500원</label>
+            <label><input type="checkbox" name="coins" value="1979년 100원 / 1500원" class = "check"> 1979년 100원 / 1500원</label>
+            <label><input type="checkbox" name="coins" value="1982년 100원(재고:3) / 2000원" class = "check"> 1982년 100원(재고:3) / 2000원</label>
+            <label><input type="checkbox" name="coins" value="1987년 100원 / 2000원" class = "check"> 1987년 100원 / 2000원</label>
+            <label><input type="checkbox" name="coins" value="1988년 100원 (재고:10) / 1500원" class = "check"> 1988년 100원 (재고:10) / 1500원</label>
+            <label><input type="checkbox" name="coins" value="1991년 100원 / 1500원" class = "check"> 1991년 100원 / 1500원</label>
+            <label><input type="checkbox" name="coins" value="1992년 100원 (재고:2) / 1500원" class = "check"> 1992년 100원 (재고:2) / 1500원</label>
+            <label><input type="checkbox" name="coins" value="1994년 100원 (재고:3) / 1000원" class = "check"> 1994년 100원 (재고:3) / 1000원</label>
+            <label><input type="checkbox" name="coins" value="1996년 100원 / 1000원" class = "check"> 1996년 100원 / 1000원</label>
+            <label><input type="checkbox" name="coins" value="1999년 100원 (재고:3) / 1000원" class = "check"> 1999년 100원 (재고:3) / 1000원</label>
+            <label><input type="checkbox" name="coins" value="2017년 100원(상태 최상) / 2000원" class = "check"> 2017년 100원(상태 최상) / 2000원</label>
+            <label><input type="checkbox" name="coins" value="1982~1996 100원 / 10000원" class = "check"> 1982~1996 100원 / 10000원</label>
+            <label><input type="checkbox" name="coins" value="1999~2017 100원 / 15000원" class = "check"> 1999~2017 100원 / 15000원</label>
+        </div>
+
+        <div class = "total_price_display"> 총금액 : 0</div>
+
+        
+        <button type="submit">구매 문의하기</button>
+    </form>
+</div>
+
+    <script>
+        const checkbox = document.querySelectorAll(".check");
+        let price = 0;
+        const total_price_display = document.querySelector(".total_price_display");
+        const array = [];
+        const display_coin = document.querySelector(".display_coin");
+        const bought_coin = [];
+        
+        const commentArray = Array.from(checkbox);
+        console.log(display_coin);
+        for(let box of commentArray){
+            box.addEventListener("change",()=>{
+
+
+                let parent = box.parentNode;
+                let value = parent.textContent;
+
+
+                let number = value.split("/")[1]
+                if (box.checked) {
+                    bought_coin.push(value);
+                    price += Number(number.slice(0,-1));
+                } else {
+                    price -= Number(number.slice(0,-1));
+                    bought_coin.pop(value);
+                }
+                
+
+                display_coin.value = bought_coin;
+
+                total_price_display.innerText = `총금액 : ${price}`
+            })
+        }
+
+
+    </script>
+</body>
+</html>

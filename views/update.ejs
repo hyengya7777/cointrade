@@ -1,0 +1,43 @@
+<%- include("./include/_header")%>
+
+  <!-- Main -->
+    <main id="site-main">
+      <div class="button-box">        
+        <a href="/contacts" class="btn btn-light"><i class="fa-solid fa-list"></i>연락처 목록</a>
+      </div>
+      <h2>연락처 수정</h2>          
+      <p>연락처 정보를 수정합니다.</p>
+      <form  action = "/contacts/<%=content._id%>?_method=PUT" method="POST" id="add-user">
+        <div class="user-info">
+          <div class="col-12">
+            <label for="name" class="col-form-label">이름(Full Name)</label>
+            <div>
+              <input type="text" class="form-control" name="name" id="name" value="<%= content.name %>">
+            </div>
+          </div>
+          <div class="col-12">
+            <label for="email" class="col-form-label">메일 주소(E-mail)</label>
+            <div>
+              <input type="text" class="form-control" name="email" id="email" value="<%= content.email %>">
+            </div>
+          </div>
+          <div class="col-12">
+            <label for="phone_number" class="col-form-label">전화번호(Mobile)</label>
+            <div>
+              <input type="text" class="form-control" name="phone_number" id="phone_number" value="<%= content.phone_number %>">
+            </div>
+          </div>
+          <div class="col-12">
+            <label for="speech" class="col-form-label">전하는 말(Speech)</label>
+            <div>
+              <input type="text" class="form-control" name="speech" id="speech" value="<%= content.speech %>">
+            </div>
+          </div>
+          <button type="submit">수정하기</button>
+        </div>
+      </form>   
+    </main>
+
+  <!-- /Main -->
+</body>
+</html>
